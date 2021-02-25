@@ -61,11 +61,11 @@ if (Command(1) = "") or getBooleanArg("--help") Then
 	Print " --shaded	Use Unicode shading characters"
 	Print " --2tone	Use 'high resoloution' halftone"
 	Print " --block	Use the full block character and spaces"
-	Print " --ascii	Use ascii characters"
+	Print " --ascii	Use ASCII characters"
 	Print
-	Print " --color	Output ANSII color codes (not available in all modes)"
+	Print " --color	Output ANSI color codes (not available in all modes)"
 	Print " --threshold    Specify the halftone threshold (0-255)"
-	Print " --pallete      Specify the ASCII pallete to be used (only works in --ascii mode and only with ASCII characters)"
+	Print " --palette      Specify the ASCII pallete to be used (only works in --ascii mode and only with ASCII characters)"
 	Print
 	
 	End
