@@ -1,7 +1,7 @@
 #include "fbgfx.bi"
 #include "FreeImage.bi"
 
-Print "Mishka's image to Image converter"
+Print "Mishka's image to text converter"
 Print
 
 Declare Function loadImage(ByVal As String) As Any Ptr
