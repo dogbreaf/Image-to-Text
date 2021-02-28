@@ -95,6 +95,16 @@ If input_img = 0 Then
 	End
 Endif
 
+If getBooleanArg("--auto-size") Then
+	output_w = Cast(fb.Image Ptr, input_img)->width
+	output_h = Cast(fb.Image Ptr, input_img)->height/2
+	
+	If output_h > 60 Then
+		output_h = output_h * (60 / output_w)
+		output_w = 60
+	Endif
+Endif
+
 input_h = CPtr(fb.Image Ptr, input_img)->height - 1
 input_w = CPtr(fb.Image Ptr, input_img)->width - 1
 
