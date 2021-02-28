@@ -112,8 +112,8 @@ If getBooleanArg("--auto-size") Then
 	output_h = Cast(fb.Image Ptr, input_img)->height/2
 	
 	If output_h > auto_size_rows Then
-		output_h = output_h * (auto_size_rows / output_w)
-		output_w = auto_size_rows
+		output_w = output_w * (auto_size_rows / output_h)
+		output_h = auto_size_rows
 	Endif
 Endif
 
