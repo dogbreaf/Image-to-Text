@@ -1,9 +1,6 @@
 #include "fbgfx.bi"
 #include "FreeImage.bi"
 
-Print "Mishka's image to text converter"
-Print
-
 Declare Function loadImage(ByVal As String) As Any Ptr
 
 Declare Function getArg( ByVal As String, ByVal As String = "" ) As String
@@ -32,7 +29,7 @@ End Union
 
 '------------------------------------------------------------------------------
 Dim As String	pixel_4bit(16)		= { " ", "▗", "▖", "▄", "▝", "▐", "▞", "▟", "▘", "▚", "▌", "▙", "▀", "▜", "▛", "█" }
-Dim As String	pixel_shaded(5)	= { " ", "░", "▒", "▓", "█" }
+Dim As String	pixel_shaded(5)		= { " ", "░", "▒", "▓", "█" }
 Dim As String	pixel_ascii(5)		= { " ", ".", "-", "+", "#" }
 
 '------------------------------------------------------------------------------
@@ -42,12 +39,20 @@ Dim As String		fname 		= firstVal( getArg( "-i" ), getArg( "--input" ), lastArg(
 Dim As Integer		output_h 	= getNumArg("-h", 12)
 Dim As Integer		output_w 	= getNumArg("-w", 22)
 
+Dim As Integer		auto_size_rows
+
 Dim As Integer		input_h
 Dim As Integer		input_w
 
 Dim As Any Ptr		input_img
 
 Dim As Integer		std_out	= FreeFile
+
+' Banner
+If not getBooleanArg("--hide-banner") Then
+	Print "Mishka's image to text converter"
+	Print
+Endif
 
 ' Usage menu
 if (Command(1) = "") or getBooleanArg("--help") Then
@@ -95,13 +100,20 @@ If input_img = 0 Then
 	End
 Endif
 
+' Automatically resize the image to a certain number of rows
 If getBooleanArg("--auto-size") Then
+	auto_size_rows = val(getArg("--auto-size"))
+	
+	If auto_size_rows = 0 Then
+		auto_size_rows = 40
+	Endif
+	
 	output_w = Cast(fb.Image Ptr, input_img)->width
 	output_h = Cast(fb.Image Ptr, input_img)->height/2
 	
-	If output_h > 60 Then
-		output_h = output_h * (60 / output_w)
-		output_w = 60
+	If output_h > auto_size_rows Then
+		output_h = output_h * (auto_size_rows / output_w)
+		output_w = auto_size_rows
 	Endif
 Endif
 
